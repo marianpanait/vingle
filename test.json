@@ -1,0 +1,36 @@
+{
+  'data': {
+    'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NTEwMDQ1NCwibGFuZ3VhZ2UiOiJlbiJ9.JS7vj-fTqrLNGrWNuH3bzpkkpVcMSAivbujMAQgpgdo',
+    'user': {
+      'id': 5100454,
+      'profile_image_urls': {
+        's': 'https://media.vingle.net/images/us_s/lws0wuwvbm.jpg',
+        'm': 'https://media.vingle.net/images/us_m/lws0wuwvbm.jpg',
+        'l': 'https://media.vingle.net/images/us_l/lws0wuwvbm.jpg'
+      },
+      'bio': None,
+      'username': 'georgeoleew',
+      'status': None,
+      'trait': None,
+      'first_language': 'en',
+      'time_zone': None,
+      'unread_notifications_count': 0,
+      'admin': False,
+      'gender': None,
+      'birthdate': None,
+      'location': None,
+      'country_code': None,
+      'email': 'george.angheloew@gmail.com',
+      'confirmed': False,
+      'cover_image_urls': None,
+      'follower_count': 0,
+      'followee_count': 0,
+      'boost_count': 0,
+      'relation': {
+        'following': False
+      },
+      'top_interests': [],
+      'onboarding': 200
+    }
+  }
+}
