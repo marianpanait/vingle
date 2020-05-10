@@ -1,11 +1,13 @@
-from src.Account import Account
-from src.config import proxy_value
-from src.helpers.mailer import get_confirmation_mail
-from src.static.constants import Response
+from multiprocessing.pool import ThreadPool
 
-email_object = {'username': 'reythooooolaw', 'email': 'RosenzweigRayia1998@bk.ru', 'password': 'Dqrgsy8jJE'}
-acc = Account(email_object=email_object, proxy=None)
-# r = acc.signup()
-#
-# if r != False and r is not Response.PROXY_ERROR.value:
-acc.confirm_account()
+from src.actions.create_article import create_vg_account
+
+
+def run_thread(thread_id):
+    create_vg_account()
+
+
+pool = ThreadPool(10)
+pool.map(run_thread, range(0, 49))
+pool.close()
+pool.join()

@@ -1,6 +1,8 @@
 import enum
 
 REGISTER_URL = 'https://api1.vingle.net/api/users'
+AUTHENTICATE_URL = 'https://api1.vingle.net/api/auth'
+CREATE_POST_URL = 'https://api1.vingle.net/api/cards'
 VALIDATE_URL = 'https://api1.vingle.net/api/users/validate?'
 
 
@@ -30,3 +32,4 @@ class ProxyOption(enum.Enum):
 
 class Response(enum.Enum):
     PROXY_ERROR = 'PROXY_ERROR'
+    USERNAME_ERROR = 'Starting with alphabet'
