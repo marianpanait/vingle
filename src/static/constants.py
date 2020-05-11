@@ -20,7 +20,7 @@ class Exceptions(enum.Enum):
 
 class SITE_MESSAGES(enum.Enum):
     SIGNUP_SUCCESS = "Your account was successfully confirmed. You can now sign in"
-    ACCOUNT_CONFIRMED = 'You’re confirmed successfully'
+    ACCOUNT_CONFIRMED = '"search":"?confirmation_token'
 
 
 class ProxyOption(enum.Enum):

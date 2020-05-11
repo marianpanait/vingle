@@ -8,6 +8,6 @@ def run_thread(thread_id):
 
 
 pool = ThreadPool(10)
-pool.map(run_thread, range(0, 49))
+pool.map(run_thread, range(0, 1))
 pool.close()
 pool.join()

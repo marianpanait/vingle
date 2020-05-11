@@ -17,6 +17,6 @@ def retry_while_proxy_error(f, *args):
     except ProxyError as e:
         print(e)
         time.sleep(1)
-        f(*args)
+        return f(*args)
     except Exception as e:
         print(f'Failed {e}')

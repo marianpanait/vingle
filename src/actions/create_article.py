@@ -26,22 +26,22 @@ def create_account(acc, profile_data):
         create_account(acc, profile_data)
         return
 
-    if not signup_respone:
+    if signup_respone is not True:
         return
 
     auth_response = retry_while_proxy_error(acc.authenticate_user)
 
-    if not auth_response:
+    if auth_response is not True:
         return
 
     confirmation_response = retry_while_proxy_error(acc.confirm_account)
 
-    if not confirmation_response:
+    if confirmation_response is not True:
         return
 
     create_article_response = retry_while_proxy_error(acc.create_article, profile_data)
 
-    if not create_article_response:
+    if create_article_response is not True:
         return
 
     return True
@@ -59,7 +59,7 @@ def create_vg_account():
     email_obj = {'email': niche['email'], 'password': niche['password'], 'username': username}
     print(f'game: {game_name}')
 
-    acc = Account(email_object=email_obj, proxy=None)
+    acc = Account(email_object=email_obj, proxy=proxy_value)
 
     article_no = random.randint(1, 3)
 

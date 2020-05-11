@@ -3,7 +3,10 @@ import json
 import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
+from requests.adapters import HTTPAdapter
 from requests.exceptions import ProxyError
+from urllib3 import Retry
+from urllib3.exceptions import MaxRetryError
 
 from src.helpers.mailer import get_confirmation_mail
 from src.helpers.request_data import check_signup_headers, check_validate_headers, check_confirm_account_headers, \
@@ -21,6 +24,10 @@ class Account:
             self.user_agent = user_agent
 
         self.s = requests.Session()
+        retry = Retry(connect=3, backoff_factor=0.5)
+        adapter = HTTPAdapter(max_retries=retry)
+        self.s.mount('http://', adapter)
+        self.s.mount('https://', adapter)
 
         if proxy:
             self.s.proxies = {
@@ -72,7 +79,11 @@ class Account:
 
         except ProxyError:
             print(f'SIGNUP ERROR: ProxyError {self.email}')
-            return Response.PROXY_ERROR.value
+            raise ProxyError
+
+        except MaxRetryError as e:
+            print(f'Auth ERROR: ProxyError {self.email}')
+            raise ProxyError
 
         except Exception as e:
             print(f'SIGNUP Error: {self.email} {e}')
@@ -101,11 +112,15 @@ class Account:
             return True
 
         except ProxyError:
-            print(f'SIGNUP ERROR: ProxyError {self.email}')
-            return Response.PROXY_ERROR.value
+            print(f'Auth ERROR: ProxyError {self.email}')
+            raise ProxyError
+
+        except MaxRetryError as e:
+            print(f'Auth ERROR: ProxyError {self.email}')
+            raise ProxyError
 
         except Exception as e:
-            print(f'SIGNUP Error: {self.email} {e}')
+            print(f'Auth Error: {self.email} {e}')
             return False
 
     def confirm_account(self):
@@ -125,13 +140,17 @@ class Account:
                 print(f'Account confirmation failed - {self.email}')
                 return False
 
-            print(f'Header: {response.headers}')
             print(f'{self.email} - Account confirmed!')
+
             return True
 
-        except ProxyError:
+        except ProxyError as e:
             print(f'Confirm Account ERROR: ProxyError {self.email}')
-            return Response.PROXY_ERROR.value
+            raise ProxyError
+
+        except MaxRetryError as e:
+            print(f'Confirm Account ERROR: ProxyError {self.email}')
+            raise ProxyError
 
         except Exception as e:
             print(f'Confirm account Error: {e}')
@@ -161,9 +180,13 @@ class Account:
             return True
 
         except ProxyError:
-            print(f'Confirm Account ERROR: ProxyError {self.email}')
-            return Response.PROXY_ERROR.value
+            print(f'Create article ERROR: ProxyError {self.email}')
+            raise ProxyError
+
+        except OSError as e:
+            print(f'Create article ERROR: ProxyError {self.email}')
+            raise ProxyError
 
         except Exception as e:
-            print(f'Confirm account Error: {e}')
+            print(f'Create article Error: {e}')
             return False
